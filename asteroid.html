@@ -19,7 +19,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', 'Share Tech Mono', monospace;
             overflow: hidden;
             position: fixed;
             width: 100%;
@@ -30,34 +30,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
+            gap: 12px;
+            padding: 12px;
             width: 100%;
             max-width: 100%;
         }
 
         canvas {
-            border: 2px solid #00d4ff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border: 3px solid #00d4ff;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
             background: #000000;
             width: 100%;
             height: auto;
             max-width: 900px;
             touch-action: none;
+            cursor: none;
         }
 
         .game-info {
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 8px 20px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 10px 25px;
+            border-radius: 12px;
             border: 1px solid #00d4ff;
             width: 100%;
             max-width: 900px;
             flex-wrap: wrap;
+            backdrop-filter: blur(5px);
         }
 
         .info-item {
@@ -66,32 +68,40 @@
         }
 
         .info-label {
-            font-size: 10px;
+            font-size: 11px;
             color: #00d4ff;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .info-value {
-            font-size: 22px;
+            font-size: 24px;
             color: #ffcc00;
             font-weight: bold;
+            text-shadow: 0 0 5px #ffcc00;
         }
 
         .lives {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             justify-content: center;
         }
 
         .heart {
-            font-size: 18px;
+            font-size: 20px;
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); text-shadow: 0 0 5px #ff0000; }
         }
 
         /* Controles Touch para Celular */
         .touch-controls {
             display: none;
-            gap: 15px;
-            margin-top: 10px;
+            gap: 12px;
+            margin-top: 8px;
             width: 100%;
             max-width: 500px;
             justify-content: center;
@@ -99,27 +109,29 @@
         }
 
         .touch-btn {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(0, 212, 255, 0.15);
             border: 2px solid #00d4ff;
             border-radius: 60px;
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 28px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.08s linear;
             color: #00d4ff;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             touch-action: manipulation;
+            font-weight: bold;
         }
 
         .touch-btn:active {
             background: #00d4ff;
             color: #000;
-            transform: scale(0.95);
+            transform: scale(0.92);
+            box-shadow: 0 0 15px #00d4ff;
         }
 
         .shoot-btn {
@@ -131,6 +143,7 @@
         .shoot-btn:active {
             background: #ff0066;
             color: #000;
+            box-shadow: 0 0 15px #ff0066;
         }
 
         .restart-btn {
@@ -142,75 +155,82 @@
             font-size: 16px;
         }
 
-        /* Botão iniciar */
-        .start-overlay {
+        .restart-btn:active {
+            background: #00ff66;
+            color: #000;
+        }
+
+        /* Telas de inicio e game over */
+        .overlay-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.97);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
-        .start-box {
+        .overlay-box {
             background: linear-gradient(135deg, #0a0a0f, #001a1a);
             padding: 40px;
-            border-radius: 20px;
+            border-radius: 25px;
             text-align: center;
             border: 2px solid #00d4ff;
             max-width: 90%;
+            width: 380px;
+            animation: fadeIn 0.3s ease;
         }
 
-        .start-box h1 {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .overlay-box h1 {
             color: #00d4ff;
             font-size: 32px;
             margin-bottom: 20px;
+            text-shadow: 0 0 10px #00d4ff;
         }
 
-        .start-box button {
+        .overlay-box button {
             background: linear-gradient(135deg, #00d4ff, #0088ff);
             color: #000;
             border: none;
-            padding: 15px 40px;
+            padding: 14px 35px;
             font-size: 18px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 40px;
             cursor: pointer;
             margin: 10px;
             font-family: monospace;
+            transition: 0.2s;
         }
 
-        .game-over {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .game-over-box {
-            background: linear-gradient(135deg, #0a0a0f, #001a1a);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 2px solid #ff0066;
+        .overlay-box button:active {
+            transform: scale(0.96);
         }
 
         .controls-info {
             font-size: 11px;
-            color: #888;
+            color: #666;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 10px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .controls-info span {
+            background: rgba(0,212,255,0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
         }
 
         @media (max-width: 768px) {
@@ -219,62 +239,81 @@
             }
             .game-info {
                 gap: 10px;
+                padding: 8px 15px;
             }
             .info-value {
-                font-size: 18px;
+                font-size: 20px;
             }
             .touch-btn {
                 width: 55px;
                 height: 55px;
                 font-size: 24px;
             }
+            .overlay-box h1 {
+                font-size: 26px;
+            }
+            .controls-info span {
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .touch-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+            .restart-btn {
+                width: auto;
+                padding: 0 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="startScreen" class="start-overlay">
-        <div class="start-box">
+    <!-- Tela Inicial -->
+    <div id="startScreen" class="overlay-screen">
+        <div class="overlay-box">
             <h1>⚡ ASTEROIDS NEON ⚡</h1>
             <p style="color: #00d4ff; margin-bottom: 20px;">Destrua os asteroides e sobreviva!</p>
             <button onclick="startGame()">🚀 INICIAR JOGO</button>
-            <div style="margin-top: 20px; font-size: 12px; color: #888;">
-                <p>🎮 Como jogar:</p>
-                <p>💻 Computador: Setas ← → ↑ + Espaço</p>
-                <p>📱 Celular: Toque nos botões da tela</p>
+            <div class="controls-info">
+                <span>💻 PC: ← → ↑ + ESPAÇO</span>
+                <span>📱 CELULAR: BOTÕES NA TELA</span>
             </div>
         </div>
     </div>
 
-    <div id="gameOverScreen" class="game-over">
-        <div class="game-over-box">
+    <!-- Tela Game Over -->
+    <div id="gameOverScreen" class="overlay-screen" style="display: none;">
+        <div class="overlay-box">
             <h1 style="color: #ff0066;">💀 GAME OVER 💀</h1>
-            <p style="font-size: 24px; margin: 20px;">Pontuação: <span id="finalScore">0</span></p>
-            <p>Nível: <span id="finalLevel">1</span></p>
-            <button onclick="restartGame()" style="background: #00d4ff; color:#000; border:none; padding:12px 30px; margin-top:20px; border-radius:10px; cursor:pointer;">🔄 JOGAR NOVAMENTE</button>
+            <p style="font-size: 28px; margin: 20px; color: #ffcc00;" id="finalScore">0</p>
+            <p>Nível: <strong id="finalLevel">1</strong></p>
+            <button onclick="restartGame()">🔄 JOGAR NOVAMENTE</button>
         </div>
     </div>
 
+    <!-- Jogo -->
     <div class="game-container">
         <div class="game-info">
             <div class="info-item">
-                <div class="info-label">PONTOS</div>
+                <div class="info-label">🎯 PONTOS</div>
                 <div class="info-value" id="score">0</div>
             </div>
             <div class="info-item">
-                <div class="info-label">NÍVEL</div>
+                <div class="info-label">⭐ NÍVEL</div>
                 <div class="info-value" id="level">1</div>
             </div>
             <div class="info-item">
-                <div class="info-label">VIDAS</div>
-                <div class="info-value lives" id="livesDisplay">
-                    <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
-                </div>
+                <div class="info-label">❤️ VIDAS</div>
+                <div class="info-value lives" id="livesDisplay">❤️ ❤️ ❤️</div>
             </div>
         </div>
 
         <canvas id="gameCanvas" width="900" height="600"></canvas>
 
-        <!-- Controles Touch para Celular -->
+        <!-- Botões Touch para Celular -->
         <div class="touch-controls">
             <div class="touch-btn" id="rotateLeftBtn">◀</div>
             <div class="touch-btn" id="rotateRightBtn">▶</div>
@@ -282,16 +321,20 @@
             <div class="touch-btn shoot-btn" id="shootBtn">💥</div>
             <div class="touch-btn restart-btn" id="restartTouchBtn">🔄</div>
         </div>
+        
         <div class="controls-info">
-            ← → Girar | ↑ Acelerar | 💥 Atirar
+            <span>◀ ▶ Girar</span>
+            <span>▲ Acelerar</span>
+            <span>💥 Atirar</span>
         </div>
     </div>
 
     <script>
+        // ========== CONFIGURAÇÕES DO CANVAS ==========
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Configurações do jogo
+        // ========== VARIÁVEIS DO JOGO ==========
         let gameRunning = false;
         let animationId = null;
         let score = 0;
@@ -303,9 +346,9 @@
             x: canvas.width / 2,
             y: canvas.height / 2,
             angle: 0,
-            velocityX: 0,
-            velocityY: 0,
-            radius: 15,
+            vx: 0,
+            vy: 0,
+            radius: 14,
             invincible: 0
         };
 
@@ -314,40 +357,33 @@
         let bullets = [];
         let particles = [];
 
-        // Cooldown
+        // Cooldown do tiro
         let shootCooldown = 0;
-        const SHOOT_DELAY = 12;
+        const SHOOT_DELAY = 10;
 
         // Dificuldade
         let asteroidSpeed = 1.5;
         let asteroidCount = 4;
 
-        // Controles de toque
-        let touchLeft = false;
-        let touchRight = false;
-        let touchAccelerate = false;
+        // ========== CONTROLES ==========
+        // Teclado
+        let keyLeft = false, keyRight = false, keyUp = false;
+        // Touch
+        let touchLeft = false, touchRight = false, touchAccel = false;
 
-        // ========== NAVEGADOR ==========
-        // Redimensionar canvas para celular mantendo proporção
-        function resizeCanvas() {
-            const container = canvas.parentElement;
-            const maxWidth = Math.min(window.innerWidth - 40, 900);
-            canvas.style.width = `${maxWidth}px`;
-            canvas.style.height = 'auto';
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // ========== SISTEMA DE VIDA ==========
-        function updateLivesDisplay() {
-            const container = document.getElementById('livesDisplay');
-            container.innerHTML = '';
+        // ========== FUNÇÕES AUXILIARES ==========
+        function updateUI() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = level;
+            
+            const hearts = document.getElementById('livesDisplay');
+            hearts.innerHTML = '';
             for (let i = 0; i < lives; i++) {
-                container.innerHTML += '<span class="heart">❤️</span>';
+                hearts.innerHTML += '<span class="heart">❤️</span>';
             }
         }
 
-        // ========== ASTEROIDES ==========
+        // ========== CLASSE ASTEROIDE ==========
         class Asteroid {
             constructor(x, y, size, vx, vy) {
                 this.x = x || Math.random() * canvas.width;
@@ -356,36 +392,33 @@
                 this.radius = this.size / 2;
                 this.vx = vx || (Math.random() - 0.5) * asteroidSpeed * 2;
                 this.vy = vy || (Math.random() - 0.5) * asteroidSpeed * 2;
-                this.rotation = Math.random() * Math.PI * 2;
+                this.angle = Math.random() * Math.PI * 2;
                 this.rotSpeed = (Math.random() - 0.5) * 0.05;
                 
                 // Forma irregular
                 this.vertices = [];
-                const segments = 10;
-                for (let i = 0; i < segments; i++) {
-                    const angle = (i / segments) * Math.PI * 2;
-                    const variation = 0.6 + Math.random() * 0.8;
-                    this.vertices.push({
-                        x: Math.cos(angle) * this.radius * variation,
-                        y: Math.sin(angle) * this.radius * variation
-                    });
+                const seg = 10;
+                for (let i = 0; i < seg; i++) {
+                    const a = (i / seg) * Math.PI * 2;
+                    const r = this.radius * (0.6 + Math.random() * 0.8);
+                    this.vertices.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
                 }
             }
 
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
+                ctx.rotate(this.angle);
                 ctx.beginPath();
                 ctx.moveTo(this.vertices[0].x, this.vertices[0].y);
                 for (let i = 1; i < this.vertices.length; i++) {
                     ctx.lineTo(this.vertices[i].x, this.vertices[i].y);
                 }
                 ctx.closePath();
-                ctx.shadowBlur = 10;
+                ctx.shadowBlur = 12;
                 ctx.shadowColor = '#ff6600';
-                ctx.strokeStyle = '#ff6600';
-                ctx.fillStyle = 'rgba(255, 102, 0, 0.2)';
+                ctx.strokeStyle = '#ff8800';
+                ctx.fillStyle = 'rgba(255, 100, 0, 0.2)';
                 ctx.fill();
                 ctx.stroke();
                 ctx.shadowBlur = 0;
@@ -395,9 +428,9 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.rotation += this.rotSpeed;
+                this.angle += this.rotSpeed;
                 
-                // Wrapping
+                // Wrap
                 if (this.x < -this.radius) this.x = canvas.width + this.radius;
                 if (this.x > canvas.width + this.radius) this.x = -this.radius;
                 if (this.y < -this.radius) this.y = canvas.height + this.radius;
@@ -407,19 +440,19 @@
             split() {
                 if (this.size > 30) {
                     const newSize = this.size / 1.5;
-                    const angle1 = Math.atan2(this.vy, this.vx) + Math.PI / 4;
-                    const angle2 = Math.atan2(this.vy, this.vx) - Math.PI / 4;
-                    const speed = Math.hypot(this.vx, this.vy);
+                    const ang1 = Math.atan2(this.vy, this.vx) + Math.PI / 4;
+                    const ang2 = Math.atan2(this.vy, this.vx) - Math.PI / 4;
+                    const spd = Math.hypot(this.vx, this.vy);
                     return [
-                        new Asteroid(this.x, this.y, newSize, Math.cos(angle1) * speed * 0.8, Math.sin(angle1) * speed * 0.8),
-                        new Asteroid(this.x, this.y, newSize, Math.cos(angle2) * speed * 0.8, Math.sin(angle2) * speed * 0.8)
+                        new Asteroid(this.x, this.y, newSize, Math.cos(ang1) * spd * 0.8, Math.sin(ang1) * spd * 0.8),
+                        new Asteroid(this.x, this.y, newSize, Math.cos(ang2) * spd * 0.8, Math.sin(ang2) * spd * 0.8)
                     ];
                 }
                 return [];
             }
         }
 
-        // ========== PARTÍCULAS ==========
+        // ========== PARTÍCULA ==========
         class Particle {
             constructor(x, y) {
                 this.x = x;
@@ -448,9 +481,9 @@
                 x: canvas.width / 2,
                 y: canvas.height / 2,
                 angle: 0,
-                velocityX: 0,
-                velocityY: 0,
-                radius: 15,
+                vx: 0,
+                vy: 0,
+                radius: 14,
                 invincible: 0
             };
             asteroids = [];
@@ -471,34 +504,27 @@
             asteroidSpeed = 1.5 + (level - 1) * 0.3;
             
             for (let i = 0; i < asteroidCount; i++) {
-                let asteroid;
+                let ast;
                 let safe = false;
                 while (!safe) {
-                    asteroid = new Asteroid();
-                    const dx = asteroid.x - ship.x;
-                    const dy = asteroid.y - ship.y;
+                    ast = new Asteroid();
+                    const dx = ast.x - ship.x;
+                    const dy = ast.y - ship.y;
                     if (Math.hypot(dx, dy) > 100) safe = true;
                 }
-                asteroids.push(asteroid);
+                asteroids.push(ast);
             }
-        }
-
-        function updateUI() {
-            document.getElementById('score').textContent = score;
-            document.getElementById('level').textContent = level;
-            updateLivesDisplay();
         }
 
         // ========== TIRO ==========
         function shoot() {
             if (shootCooldown > 0) return;
-            
             bullets.push({
                 x: ship.x + Math.cos(ship.angle) * ship.radius,
                 y: ship.y + Math.sin(ship.angle) * ship.radius,
-                vx: ship.velocityX + Math.cos(ship.angle) * 9,
-                vy: ship.velocityY + Math.sin(ship.angle) * 9,
-                radius: 3,
+                vx: ship.vx + Math.cos(ship.angle) * 9,
+                vy: ship.vy + Math.sin(ship.angle) * 9,
+                radius: 4,
                 life: 100
             });
             shootCooldown = SHOOT_DELAY;
@@ -506,7 +532,7 @@
 
         // ========== COLISÕES ==========
         function checkCollisions() {
-            // Colisão com asteroides
+            // Nave vs Asteroides
             for (let i = 0; i < asteroids.length; i++) {
                 const a = asteroids[i];
                 const dx = ship.x - a.x;
@@ -515,21 +541,18 @@
                     lives--;
                     updateUI();
                     
-                    // Criar explosão
-                    for (let j = 0; j < 15; j++) particles.push(new Particle(ship.x, ship.y));
+                    for (let j = 0; j < 20; j++) particles.push(new Particle(ship.x, ship.y));
                     
                     if (lives <= 0) {
                         gameOver();
                         return false;
                     }
                     
-                    // Reset nave com invencibilidade
                     ship.x = canvas.width / 2;
                     ship.y = canvas.height / 2;
-                    ship.velocityX = 0;
-                    ship.velocityY = 0;
+                    ship.vx = 0;
+                    ship.vy = 0;
                     ship.invincible = 60;
-                    
                     asteroids.splice(i, 1);
                     break;
                 }
@@ -537,7 +560,7 @@
             
             if (ship.invincible > 0) ship.invincible--;
             
-            // Colisão tiros com asteroides
+            // Tiros vs Asteroides
             for (let i = bullets.length - 1; i >= 0; i--) {
                 const b = bullets[i];
                 let hit = false;
@@ -545,21 +568,19 @@
                 for (let j = asteroids.length - 1; j >= 0; j--) {
                     const a = asteroids[j];
                     if (Math.hypot(b.x - a.x, b.y - a.y) < a.radius) {
-                        const newAsteroids = a.split();
-                        asteroids.splice(j, 1, ...newAsteroids);
+                        const newAst = a.split();
+                        asteroids.splice(j, 1, ...newAst);
                         score += 10;
                         updateUI();
                         
-                        for (let k = 0; k < 10; k++) particles.push(new Particle(a.x, a.y));
+                        for (let k = 0; k < 12; k++) particles.push(new Particle(a.x, a.y));
                         
-                        // Verificar nível
                         const newLevel = Math.floor(score / 50) + 1;
                         if (newLevel > level) {
                             level = newLevel;
                             updateUI();
                             asteroidSpeed = 1.5 + (level - 1) * 0.3;
                         }
-                        
                         hit = true;
                         break;
                     }
@@ -569,20 +590,38 @@
             return true;
         }
 
-        // ========== DESENHOS ==========
+        // ========== DESENHO ==========
+        function drawStars() {
+            if (!window.starsData) {
+                window.starsData = [];
+                for (let i = 0; i < 150; i++) {
+                    window.starsData.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2,
+                        alpha: Math.random() * 0.7
+                    });
+                }
+            }
+            for (const s of window.starsData) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+                ctx.fillRect(s.x, s.y, s.size, s.size);
+            }
+        }
+
         function drawShip() {
             if (ship.invincible > 0 && Math.floor(Date.now() / 50) % 3 === 0) return;
             
             ctx.save();
             ctx.translate(ship.x, ship.y);
             ctx.rotate(ship.angle);
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 12;
             ctx.shadowColor = '#00ffff';
             ctx.beginPath();
             ctx.moveTo(18, 0);
-            ctx.lineTo(-12, -8);
+            ctx.lineTo(-12, -9);
             ctx.lineTo(-6, 0);
-            ctx.lineTo(-12, 8);
+            ctx.lineTo(-12, 9);
             ctx.closePath();
             ctx.fillStyle = '#00ffff';
             ctx.fill();
@@ -590,12 +629,12 @@
             ctx.lineWidth = 1.5;
             ctx.stroke();
             
-            // Chama
-            if (touchAccelerate) {
+            // Chama do motor
+            if (keyUp || touchAccel) {
                 ctx.beginPath();
                 ctx.moveTo(-10, 0);
-                ctx.lineTo(-18, -5);
-                ctx.lineTo(-18, 5);
+                ctx.lineTo(-20, -6);
+                ctx.lineTo(-20, 6);
                 ctx.fillStyle = '#ff6600';
                 ctx.fill();
             }
@@ -606,54 +645,52 @@
         function drawBullets() {
             for (const b of bullets) {
                 ctx.beginPath();
-                ctx.arc(b.x, b.y, 3, 0, Math.PI * 2);
+                ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffff00';
                 ctx.fill();
-                ctx.shadowBlur = 8;
+                ctx.shadowBlur = 10;
                 ctx.shadowColor = '#ffff00';
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
         }
 
-        function drawStars() {
-            for (let i = 0; i < 150; i++) {
-                if (!window.stars) {
-                    window.stars = [];
-                    for (let j = 0; j < 150; j++) {
-                        window.stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, alpha: Math.random() });
-                    }
-                }
-                const s = window.stars[i];
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha * 0.5})`;
-                ctx.fillRect(s.x, s.y, 1.5, 1.5);
-            }
-        }
-
-        // ========== UPDATE ==========
+        // ========== ATUALIZAÇÃO ==========
         function updateGame() {
             if (!gameRunning) return;
             
+            // Cooldown
             if (shootCooldown > 0) shootCooldown--;
             
-            // Controles touch
-            if (touchLeft) ship.angle -= 0.08;
-            if (touchRight) ship.angle += 0.08;
-            if (touchAccelerate) {
-                ship.velocityX += Math.cos(ship.angle) * 0.25;
-                ship.velocityY += Math.sin(ship.angle) * 0.25;
-                const maxSpeed = 7;
-                if (Math.abs(ship.velocityX) > maxSpeed) ship.velocityX = Math.sign(ship.velocityX) * maxSpeed;
-                if (Math.abs(ship.velocityY) > maxSpeed) ship.velocityY = Math.sign(ship.velocityY) * maxSpeed;
+            // Controles via teclado
+            if (keyLeft) ship.angle -= 0.09;
+            if (keyRight) ship.angle += 0.09;
+            if (keyUp) {
+                ship.vx += Math.cos(ship.angle) * 0.28;
+                ship.vy += Math.sin(ship.angle) * 0.28;
+                const maxSpeed = 7.5;
+                if (Math.abs(ship.vx) > maxSpeed) ship.vx = Math.sign(ship.vx) * maxSpeed;
+                if (Math.abs(ship.vy) > maxSpeed) ship.vy = Math.sign(ship.vy) * maxSpeed;
+            }
+            
+            // Controles via touch
+            if (touchLeft) ship.angle -= 0.09;
+            if (touchRight) ship.angle += 0.09;
+            if (touchAccel) {
+                ship.vx += Math.cos(ship.angle) * 0.28;
+                ship.vy += Math.sin(ship.angle) * 0.28;
+                const maxSpeed = 7.5;
+                if (Math.abs(ship.vx) > maxSpeed) ship.vx = Math.sign(ship.vx) * maxSpeed;
+                if (Math.abs(ship.vy) > maxSpeed) ship.vy = Math.sign(ship.vy) * maxSpeed;
             }
             
             // Atrito
-            ship.velocityX *= 0.99;
-            ship.velocityY *= 0.99;
-            ship.x += ship.velocityX;
-            ship.y += ship.velocityY;
+            ship.vx *= 0.99;
+            ship.vy *= 0.99;
+            ship.x += ship.vx;
+            ship.y += ship.vy;
             
-            // Wrapping nave
+            // Wrap nave
             if (ship.x < 0) ship.x = canvas.width;
             if (ship.x > canvas.width) ship.x = 0;
             if (ship.y < 0) ship.y = canvas.height;
@@ -726,8 +763,6 @@
         }
 
         // ========== EVENTOS TECLADO ==========
-        let keyLeft = false, keyRight = false, keyUp = false;
-        
         document.addEventListener('keydown', (e) => {
             if (!gameRunning) return;
             if (e.key === 'ArrowLeft') { keyLeft = true; e.preventDefault(); }
@@ -741,53 +776,47 @@
             if (e.key === 'ArrowRight') keyRight = false;
             if (e.key === 'ArrowUp') keyUp = false;
         });
-        
-        // Atualizar nave pelos controles
-        function updateKeyboardControls() {
-            if (keyLeft) ship.angle -= 0.08;
-            if (keyRight) ship.angle += 0.08;
-            if (keyUp) {
-                ship.velocityX += Math.cos(ship.angle) * 0.25;
-                ship.velocityY += Math.sin(ship.angle) * 0.25;
-                const maxSpeed = 7;
-                if (Math.abs(ship.velocityX) > maxSpeed) ship.velocityX = Math.sign(ship.velocityX) * maxSpeed;
-                if (Math.abs(ship.velocityY) > maxSpeed) ship.velocityY = Math.sign(ship.velocityY) * maxSpeed;
-            }
-        }
-        
-        // Sobrescrever updateGame para usar teclado
-        const originalUpdate = updateGame;
-        window.updateGame = function() {
-            if (!gameRunning) return;
-            updateKeyboardControls();
-            originalUpdate();
-        };
-        updateGame = window.updateGame;
 
         // ========== EVENTOS TOUCH ==========
-        document.getElementById('rotateLeftBtn').addEventListener('touchstart', (e) => { e.preventDefault(); touchLeft = true; });
-        document.getElementById('rotateLeftBtn').addEventListener('touchend', () => { touchLeft = false; });
-        document.getElementById('rotateLeftBtn').addEventListener('mousedown', () => { touchLeft = true; });
-        document.getElementById('rotateLeftBtn').addEventListener('mouseup', () => { touchLeft = false; });
-        
-        document.getElementById('rotateRightBtn').addEventListener('touchstart', (e) => { e.preventDefault(); touchRight = true; });
-        document.getElementById('rotateRightBtn').addEventListener('touchend', () => { touchRight = false; });
-        document.getElementById('rotateRightBtn').addEventListener('mousedown', () => { touchRight = true; });
-        document.getElementById('rotateRightBtn').addEventListener('mouseup', () => { touchRight = false; });
-        
-        document.getElementById('accelerateBtn').addEventListener('touchstart', (e) => { e.preventDefault(); touchAccelerate = true; });
-        document.getElementById('accelerateBtn').addEventListener('touchend', () => { touchAccelerate = false; });
-        document.getElementById('accelerateBtn').addEventListener('mousedown', () => { touchAccelerate = true; });
-        document.getElementById('accelerateBtn').addEventListener('mouseup', () => { touchAccelerate = false; });
-        
-        document.getElementById('shootBtn').addEventListener('click', (e) => { e.preventDefault(); shoot(); });
-        document.getElementById('shootBtn').addEventListener('touchstart', (e) => { e.preventDefault(); shoot(); });
-        
-        document.getElementById('restartTouchBtn').addEventListener('click', () => { restartGame(); });
-        
-        // Prevenir scroll na tela
+        const leftBtn = document.getElementById('rotateLeftBtn');
+        const rightBtn = document.getElementById('rotateRightBtn');
+        const accelBtn = document.getElementById('accelerateBtn');
+        const shootBtn = document.getElementById('shootBtn');
+        const restartTouch = document.getElementById('restartTouchBtn');
+
+        leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); touchLeft = true; });
+        leftBtn.addEventListener('touchend', () => { touchLeft = false; });
+        leftBtn.addEventListener('mousedown', () => { touchLeft = true; });
+        leftBtn.addEventListener('mouseup', () => { touchLeft = false; });
+
+        rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); touchRight = true; });
+        rightBtn.addEventListener('touchend', () => { touchRight = false; });
+        rightBtn.addEventListener('mousedown', () => { touchRight = true; });
+        rightBtn.addEventListener('mouseup', () => { touchRight = false; });
+
+        accelBtn.addEventListener('touchstart', (e) => { e.preventDefault(); touchAccel = true; });
+        accelBtn.addEventListener('touchend', () => { touchAccel = false; });
+        accelBtn.addEventListener('mousedown', () => { touchAccel = true; });
+        accelBtn.addEventListener('mouseup', () => { touchAccel = false; });
+
+        shootBtn.addEventListener('click', (e) => { e.preventDefault(); shoot(); });
+        shootBtn.addEventListener('touchstart', (e) => { e.preventDefault(); shoot(); });
+
+        restartTouch.addEventListener('click', () => { restartGame(); });
+
+        // Evitar scroll na tela do canvas
         canvas.addEventListener('touchstart', (e) => e.preventDefault());
         
+        // Redimensionar canvas para manter proporção
+        function resizeCanvas() {
+            const maxW = Math.min(window.innerWidth - 40, 900);
+            canvas.style.width = `${maxW}px`;
+            canvas.style.height = 'auto';
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Exportar funções para global
         window.startGame = startGame;
         window.restartGame = restartGame;
     </script>
